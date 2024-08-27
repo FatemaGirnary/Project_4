@@ -1,4 +1,4 @@
-## Project Outline
+## Project 4 - Predicting Heart Disease
 The goal of this project was to use a machine learning model to accurately predict whether a patient will experience heart failure based on the following features:
 
 - Age
