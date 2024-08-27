@@ -1,5 +1,5 @@
 ## Project Outline
-The goal of this project was to accurately predict whether a patient will experience heart failure based on the following features:
+The goal of this project was to use a machine learning model accurately predict whether a patient will experience heart failure based on the following features:
 
 - Age
 - Sex
