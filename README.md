@@ -24,7 +24,7 @@ The dataset utilized contains 11 clinical features for predicting heart disease 
 [Heart Failure Prediction Dataset (Kaggle)](https://www.kaggle.com)
 
 ## Preprocessing
-The Scikit-learn library covered the machine learning workflow from data preprocessing to model evaluation. PySpark was also used to read and inspect the data. The Panda’s library was ultimately used for primary data manipulation.
+The Scikit-learn library covered the machine learning workflow from data preprocessing to model evaluation. PySpark was also used to read and inspect the data with Matplotlib being applied for visulisations. The Panda’s library was ultimately used for primary data manipulation with Google Colab utilised for its hosted Juypter Notebook service.
 
 ### The preprocessing steps involved
 - Splitting the dataset into features (X) and the target variable (y) representing the presence of heart disease.
