@@ -86,10 +86,13 @@ if st.button('Predict'):
                                        'ExerciseAngina_N', 'ExerciseAngina_Y', 'ST_Slope_Down', 'ST_Slope_Flat', 'ST_Slope_Up'])
     
     
-    #To Test for Heart Disease
-    #input_data = pd.DataFrame([[38, 110, 289, 0, 105, 1.5, False, True, True, False, False, 
-    #                            False, False, True, False, False, True, True, 
-    #                            False, False]])
+    # Overides the input data with a postive result for Heart_Failure to validate loaded models against model creation code
+    # input_data = pd.DataFrame([[38, 110, 289, 0, 105, 1.5, False, True, True, False, False,
+    #                             False, False, True, False, False, True, True,
+    #                             False, False]],
+    #                           columns=['Age', 'RestingBP', 'Cholesterol', 'FastingBS', 'MaxHR', 'Oldpeak', 'Sex_F', 'Sex_M', 'ChestPainType_ASY',
+    #                                    'ChestPainType_ATA', 'ChestPainType_NAP', 'ChestPainType_TA', 'RestingECG_LVH', 'RestingECG_Normal', 'RestingECG_ST',
+    #                                    'ExerciseAngina_N', 'ExerciseAngina_Y', 'ST_Slope_Down', 'ST_Slope_Flat', 'ST_Slope_Up'])
     
 
     # Display summary of features data
@@ -100,12 +103,18 @@ if st.button('Predict'):
     prediction_regression = int(loaded_model.predict(input_data)[0])
     prediction_xgboost = int(loaded_model_xgboost.predict(input_data)[0])
     prediction_randomforest = int(loaded_model_randomforest.predict(input_data)[0])
-    prediction_neuralnetworks = int(loaded_model_neuralnetworks.predict(input_data)[0])
-    
+
+    #Converts the array to an integer safely to avoid warnings of deprecated behavior for NumPy
+    prediction_neuralnetworks = loaded_model_neuralnetworks.predict(input_data)[0].item()
+    # The Neural Network model produces probabilities between 0 and 1 as outputs. We require the final output to be strictly 0 or 1,
+    # so we handle it during the prediction phase with the threshold approach.
+    prediction_neuralnetworks = int(prediction_neuralnetworks > 0.5)
+
     # Prepare the prediction results for display in a table
     results = pd.DataFrame({
         'Model': ['Logistic Regression', 'XGBoost', 'Random Forest' , 'Neural Network'],
-        'Prediction': ['Risk of Heart Disease' if x == 1 else 'No Risk of Heart Disease' for x in [prediction_regression, prediction_xgboost, prediction_randomforest, prediction_neuralnetworks]]
+        'Prediction': ['Risk of Heart Disease' if x > 0 else 'No Risk of Heart Disease' for x in [prediction_regression, prediction_xgboost, prediction_randomforest, prediction_neuralnetworks]],
+        'Result': [prediction_regression,prediction_xgboost,prediction_randomforest,prediction_neuralnetworks]
     })
 
     # Display the prediction results in a table
