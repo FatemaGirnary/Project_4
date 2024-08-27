@@ -102,7 +102,7 @@ if st.button('Predict'):
      # Make predictions using the models
     prediction_regression = int(loaded_model.predict(input_data)[0])
     prediction_xgboost = int(loaded_model_xgboost.predict(input_data)[0])
-    prediction_randomforest = int(loaded_model_randomforest.predict(input_data)[0])
+    prediction_randomforest = int(loaded_modgitv statusel_randomforest.predict(input_data)[0])
 
     #Converts the array to an integer safely to avoid warnings of deprecated behavior for NumPy
     prediction_neuralnetworks = loaded_model_neuralnetworks.predict(input_data)[0].item()
